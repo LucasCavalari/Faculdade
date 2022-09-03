@@ -1,24 +1,39 @@
 package com.netflix.projeto.usuario.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "USUARIO")
-public class Usuario {
-
+@DiscriminatorValue("USUARIO")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Column(name="ID", nullable = false, unique = true)
     private Integer id;
+
+    @Column(name = "NOME", nullable = false, unique = true)
     private String nome;
+
+    @Column(name = "LOGIN", nullable = false, unique = true)
     private String login;
+
+    @Column(name = "SENHA", nullable = false, unique = true)
     private String senha;
 
+
+    @Email
+    @Column(name = "EMAIL", nullable = false, unique = true)
+    private String email;
 
     public Integer getId() {
         return id;
@@ -50,5 +65,13 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
